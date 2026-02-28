@@ -380,4 +380,5 @@ For support and queries, contact the development team.
 **Status**: Active Development
 
 #   d e m o  
+ #   i n s u r a n c e c l a i m  
  
