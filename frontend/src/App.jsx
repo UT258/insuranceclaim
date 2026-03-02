@@ -1,116 +1,80 @@
-import { useEffect, useState } from "react";
-
-const gatewayBaseUrl = "http://localhost:8080/api/v1";
-
-async function getJson(path) {
-  const response = await fetch(`${gatewayBaseUrl}${path}`);
-  if (!response.ok) {
-    throw new Error(`Request failed: ${response.status}`);
-  }
-  return response.json();
-}
+import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom'
+import { LayoutDashboard, Database, Shield, TrendingDown, LineChart, DollarSign, FileText, Bell } from 'lucide-react'
+import Dashboard from './pages/Dashboard'
+import DataIngestion from './pages/DataIngestion'
+import FraudRisk from './pages/FraudRisk'
+import DenialAnalysis from './pages/DenialAnalysis'
+import Performance from './pages/Performance'
+import CostReserve from './pages/CostReserve'
+import Reports from './pages/Reports'
+import Notifications from './pages/Notifications'
 
 export default function App() {
-  const [dashboard, setDashboard] = useState(null);
-  const [users, setUsers] = useState([]);
-  const [kpis, setKpis] = useState([]);
-  const [notifications, setNotifications] = useState([]);
-  const [trends, setTrends] = useState(null);
-  const [riskSummary, setRiskSummary] = useState(null);
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const load = async () => {
-      try {
-        const [dashboardData, usersData, kpisData, notificationsData, trendsData, riskData] = await Promise.all([
-          getJson("/claims/dashboard").catch(() => ({})),
-          getJson("/identity/users").catch(() => []),
-          getJson("/analytics/kpis").catch(() => []),
-          getJson("/notifications").catch(() => []),
-          getJson("/analytics/trends").catch(() => ({})),
-          getJson("/analytics/risk-summary").catch(() => ({}))
-        ]);
-        setDashboard(dashboardData);
-        setUsers(usersData);
-        setKpis(kpisData);
-        setNotifications(notificationsData);
-        setTrends(trendsData);
-        setRiskSummary(riskData);
-      } catch (e) {
-        setError(e.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    load();
-  }, []);
-
-  if (loading) return <main className="container"><p>Loading ClaimInsight360...</p></main>;
-
   return (
-    <main className="container">
-      <header>
-        <h1>📊 ClaimInsight360</h1>
-        <p>Insurance Claims Analytics & Intelligence Platform</p>
-      </header>
+    <Router>
+      <div className="app-container">
+        <aside className="sidebar">
+          <div className="logo">
+            <h1>ClaimInsight360</h1>
+            <p>Insurance Claims Analytics</p>
+          </div>
+          
+          <nav className="nav-menu">
+            <NavLink to="/" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
+              <LayoutDashboard size={20} />
+              <span>Dashboard</span>
+            </NavLink>
+            
+            <NavLink to="/data-ingestion" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
+              <Database size={20} />
+              <span>Data Ingestion</span>
+            </NavLink>
+            
+            <NavLink to="/fraud-risk" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
+              <Shield size={20} />
+              <span>Fraud & Risk</span>
+            </NavLink>
+            
+            <NavLink to="/denial-analysis" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
+              <TrendingDown size={20} />
+              <span>Denial Analysis</span>
+            </NavLink>
+            
+            <NavLink to="/performance" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
+              <LineChart size={20} />
+              <span>Performance</span>
+            </NavLink>
+            
+            <NavLink to="/cost-reserve" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
+              <DollarSign size={20} />
+              <span>Cost & Reserve</span>
+            </NavLink>
+            
+            <NavLink to="/reports" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
+              <FileText size={20} />
+              <span>Reports</span>
+            </NavLink>
+            
+            <NavLink to="/notifications" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
+              <Bell size={20} />
+              <span>Notifications</span>
+            </NavLink>
+          </nav>
+        </aside>
 
-      {error && <p className="error">⚠️ {error}</p>}
-
-      <section className="grid">
-        <article className="card">
-          <h2>📋 Claims Summary</h2>
-          <p><strong>Data Feeds:</strong> {dashboard?.totalFeeds ?? 0}</p>
-          <p><strong>Raw Claims:</strong> {dashboard?.totalRawClaims ?? 0}</p>
-          <p><strong>Risk Scores:</strong> {dashboard?.totalRiskScores ?? 0}</p>
-          <p><strong>SLA Violations:</strong> {dashboard?.totalSlaViolations ?? 0}</p>
-        </article>
-
-        <article className="card">
-          <h2>💰 Financial Overview</h2>
-          <p><strong>Total Claim Cost:</strong> ${(dashboard?.totalClaimCost ?? 0).toLocaleString()}</p>
-          <p><strong>Total Reserve:</strong> ${(dashboard?.totalReserveAmount ?? 0).toLocaleString()}</p>
-        </article>
-
-        <article className="card">
-          <h2>📈 Trends</h2>
-          <p><strong>Period:</strong> {trends?.period ?? "N/A"}</p>
-          <p><strong>Claim Volume:</strong> {trends?.claimVolume ?? 0}</p>
-          <p><strong>Denial Rate:</strong> {(trends?.denialRate * 100)?.toFixed(1) ?? 0}%</p>
-        </article>
-
-        <article className="card">
-          <h2>⚠️ Risk Analysis</h2>
-          <p><strong>High-Risk Claims:</strong> {riskSummary?.highRiskClaims ?? 0}</p>
-          <p><strong>Anomalies Detected:</strong> {riskSummary?.anomaliesDetected ?? 0}</p>
-          <p><strong>Avg Risk Score:</strong> {riskSummary?.avgRiskScore ?? 0}</p>
-        </article>
-
-        <article className="card">
-          <h2>👥 Users</h2>
-          <p><strong>Total Users:</strong> {users.length}</p>
-          {users.slice(0, 2).map((u, i) => (
-            <p key={i}>{u.name} ({u.role})</p>
-          ))}
-        </article>
-
-        <article className="card">
-          <h2>📊 KPIs</h2>
-          <p><strong>Metrics:</strong> {kpis.length}</p>
-          {kpis.slice(0, 2).map((k, i) => (
-            <p key={i}>{k.metricName}: {k.metricValue}</p>
-          ))}
-        </article>
-
-        <article className="card">
-          <h2>🔔 Notifications</h2>
-          <p><strong>Alerts:</strong> {notifications.length}</p>
-          {notifications.slice(0, 2).map((n, i) => (
-            <p key={i} className="notification">{n.category}: {n.message.substring(0, 30)}...</p>
-          ))}
-        </article>
-      </section>
-    </main>
-  );
+        <main className="main-content">
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/data-ingestion" element={<DataIngestion />} />
+            <Route path="/fraud-risk" element={<FraudRisk />} />
+            <Route path="/denial-analysis" element={<DenialAnalysis />} />
+            <Route path="/performance" element={<Performance />} />
+            <Route path="/cost-reserve" element={<CostReserve />} />
+            <Route path="/reports" element={<Reports />} />
+            <Route path="/notifications" element={<Notifications />} />
+          </Routes>
+        </main>
+      </div>
+    </Router>
+  )
 }
