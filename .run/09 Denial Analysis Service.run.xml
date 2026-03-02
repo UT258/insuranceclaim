@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Denial Analysis Service" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="denial-analysis-service" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.claiminsight360.denialanalysis.DenialAnalysisServiceApplication" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/services/denial-analysis-service" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

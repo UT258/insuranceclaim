@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Data Ingestion Service" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="data-ingestion-service" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.claiminsight360.dataingestion.DataIngestionServiceApplication" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/services/data-ingestion-service" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

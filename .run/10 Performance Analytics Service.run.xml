@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Performance Analytics Service" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="performance-analytics-service" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.claiminsight360.performance.PerformanceAnalyticsServiceApplication" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/services/performance-analytics-service" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

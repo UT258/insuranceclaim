@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Dashboard Service" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="dashboard-service" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.claiminsight360.dashboard.DashboardServiceApplication" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/services/dashboard-service" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

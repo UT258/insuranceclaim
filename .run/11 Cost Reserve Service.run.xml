@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Cost Reserve Service" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="cost-reserve-service" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.claiminsight360.costreserve.CostReserveServiceApplication" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/services/cost-reserve-service" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

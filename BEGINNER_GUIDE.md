@@ -43,6 +43,17 @@ It collects claim data, analyzes fraud and denials, tracks performance/costs, an
 docker-compose up -d --build
 ```
 
+### Run in IntelliJ (one click)
+
+This repository now includes shared IntelliJ run configs in `.run/`.
+
+1. Open the project root in IntelliJ as a Maven project.
+2. Click Maven **Reload All Projects** once.
+3. In the Run/Debug dropdown, select **Run All Services (Spring Boot)**.
+4. Click the Run button.
+
+IntelliJ will start all Spring Boot microservices using one compound configuration.
+
 Useful URLs:
 - Frontend: `http://localhost:3000`
 - Gateway health: `http://localhost:8080/api/v1/health`

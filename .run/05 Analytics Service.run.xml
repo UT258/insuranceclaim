@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Analytics Service" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="analytics-service" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.claiminsight360.analytics.AnalyticsServiceApplication" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/services/analytics-service" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

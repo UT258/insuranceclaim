@@ -1,0 +1,16 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Run All Services (Spring Boot)" type="CompoundRunConfigurationType" factoryName="Compound">
+    <toRun name="Service Registry" type="SpringBootApplicationConfigurationType" />
+    <toRun name="API Gateway" type="SpringBootApplicationConfigurationType" />
+    <toRun name="Claims Service" type="SpringBootApplicationConfigurationType" />
+    <toRun name="Identity Service" type="SpringBootApplicationConfigurationType" />
+    <toRun name="Analytics Service" type="SpringBootApplicationConfigurationType" />
+    <toRun name="Notification Service" type="SpringBootApplicationConfigurationType" />
+    <toRun name="Data Ingestion Service" type="SpringBootApplicationConfigurationType" />
+    <toRun name="Fraud Risk Service" type="SpringBootApplicationConfigurationType" />
+    <toRun name="Denial Analysis Service" type="SpringBootApplicationConfigurationType" />
+    <toRun name="Performance Analytics Service" type="SpringBootApplicationConfigurationType" />
+    <toRun name="Cost Reserve Service" type="SpringBootApplicationConfigurationType" />
+    <toRun name="Dashboard Service" type="SpringBootApplicationConfigurationType" />
+  </configuration>
+</component>

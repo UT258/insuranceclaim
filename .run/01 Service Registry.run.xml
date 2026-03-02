@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Service Registry" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="service-registry" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.claiminsight360.registry.ServiceRegistryApplication" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/services/service-registry" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

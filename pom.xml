@@ -10,11 +10,17 @@
     <name>claiminsight360-platform</name>
 
     <modules>
+        <module>services/service-registry</module>
+        <module>services/api-gateway</module>
         <module>services/claims-service</module>
         <module>services/identity-service</module>
         <module>services/analytics-service</module>
         <module>services/notification-service</module>
-        <module>services/api-gateway</module>
-        <module>services/service-registry</module>
+        <module>services/data-ingestion-service</module>
+        <module>services/fraud-risk-service</module>
+        <module>services/denial-analysis-service</module>
+        <module>services/performance-analytics-service</module>
+        <module>services/cost-reserve-service</module>
+        <module>services/dashboard-service</module>
     </modules>
 </project>

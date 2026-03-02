@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Fraud Risk Service" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="fraud-risk-service" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.claiminsight360.fraudrisk.FraudRiskServiceApplication" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/services/fraud-risk-service" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
