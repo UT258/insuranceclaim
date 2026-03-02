@@ -1,0 +1,8 @@
+/workspaces/insuranceclaim/services/notification-service/src/main/java/com/claiminsight360/notification/NotificationServiceApplication.java
+/workspaces/insuranceclaim/services/notification-service/src/main/java/com/claiminsight360/notification/domain/Notification.java
+/workspaces/insuranceclaim/services/notification-service/src/main/java/com/claiminsight360/notification/domain/NotificationCategory.java
+/workspaces/insuranceclaim/services/notification-service/src/main/java/com/claiminsight360/notification/domain/NotificationStatus.java
+/workspaces/insuranceclaim/services/notification-service/src/main/java/com/claiminsight360/notification/dto/NotificationDto.java
+/workspaces/insuranceclaim/services/notification-service/src/main/java/com/claiminsight360/notification/repo/NotificationRepository.java
+/workspaces/insuranceclaim/services/notification-service/src/main/java/com/claiminsight360/notification/service/NotificationService.java
+/workspaces/insuranceclaim/services/notification-service/src/main/java/com/claiminsight360/notification/web/NotificationController.java

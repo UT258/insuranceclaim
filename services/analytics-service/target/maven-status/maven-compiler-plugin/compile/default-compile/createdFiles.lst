@@ -1,0 +1,6 @@
+com/claiminsight360/analytics/repo/ClaimKpiRepository.class
+com/claiminsight360/analytics/domain/ClaimKpi.class
+com/claiminsight360/analytics/dto/ClaimKpiDto.class
+com/claiminsight360/analytics/AnalyticsServiceApplication.class
+com/claiminsight360/analytics/web/KpiController.class
+com/claiminsight360/analytics/service/ClaimKpiService.class

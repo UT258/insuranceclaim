@@ -1,0 +1,9 @@
+com/claiminsight360/backend/IdentityServiceApplication.class
+com/claiminsight360/identity/domain/UserAccount.class
+com/claiminsight360/backend/controller/IdentityController.class
+com/claiminsight360/identity/dto/UserDto.class
+com/claiminsight360/identity/web/UserController.class
+com/claiminsight360/identity/service/UserService.class
+com/claiminsight360/identity/domain/RoleType.class
+com/claiminsight360/identity/IdentityServiceApplication.class
+com/claiminsight360/identity/repo/UserRepository.class

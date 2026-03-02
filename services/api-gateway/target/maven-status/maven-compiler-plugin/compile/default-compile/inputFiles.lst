@@ -1,0 +1,3 @@
+/workspaces/insuranceclaim/services/api-gateway/src/main/java/com/claiminsight360/apigateway/ApiGatewayApplication.java
+/workspaces/insuranceclaim/services/api-gateway/src/main/java/com/claiminsight360/apigateway/config/HttpClientConfig.java
+/workspaces/insuranceclaim/services/api-gateway/src/main/java/com/claiminsight360/apigateway/web/ProxyController.java

@@ -1,0 +1,9 @@
+/workspaces/insuranceclaim/services/identity-service/src/main/java/com/claiminsight360/backend/IdentityServiceApplication.java
+/workspaces/insuranceclaim/services/identity-service/src/main/java/com/claiminsight360/backend/controller/IdentityController.java
+/workspaces/insuranceclaim/services/identity-service/src/main/java/com/claiminsight360/identity/IdentityServiceApplication.java
+/workspaces/insuranceclaim/services/identity-service/src/main/java/com/claiminsight360/identity/domain/RoleType.java
+/workspaces/insuranceclaim/services/identity-service/src/main/java/com/claiminsight360/identity/domain/UserAccount.java
+/workspaces/insuranceclaim/services/identity-service/src/main/java/com/claiminsight360/identity/dto/UserDto.java
+/workspaces/insuranceclaim/services/identity-service/src/main/java/com/claiminsight360/identity/repo/UserRepository.java
+/workspaces/insuranceclaim/services/identity-service/src/main/java/com/claiminsight360/identity/service/UserService.java
+/workspaces/insuranceclaim/services/identity-service/src/main/java/com/claiminsight360/identity/web/UserController.java

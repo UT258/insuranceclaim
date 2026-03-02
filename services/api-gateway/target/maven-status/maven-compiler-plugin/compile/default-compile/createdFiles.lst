@@ -1,0 +1,3 @@
+com/claiminsight360/apigateway/ApiGatewayApplication.class
+com/claiminsight360/apigateway/web/ProxyController.class
+com/claiminsight360/apigateway/config/HttpClientConfig.class

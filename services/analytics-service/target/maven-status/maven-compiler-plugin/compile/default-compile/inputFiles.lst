@@ -1,0 +1,6 @@
+/workspaces/insuranceclaim/services/analytics-service/src/main/java/com/claiminsight360/analytics/AnalyticsServiceApplication.java
+/workspaces/insuranceclaim/services/analytics-service/src/main/java/com/claiminsight360/analytics/domain/ClaimKpi.java
+/workspaces/insuranceclaim/services/analytics-service/src/main/java/com/claiminsight360/analytics/dto/ClaimKpiDto.java
+/workspaces/insuranceclaim/services/analytics-service/src/main/java/com/claiminsight360/analytics/repo/ClaimKpiRepository.java
+/workspaces/insuranceclaim/services/analytics-service/src/main/java/com/claiminsight360/analytics/service/ClaimKpiService.java
+/workspaces/insuranceclaim/services/analytics-service/src/main/java/com/claiminsight360/analytics/web/KpiController.java
