@@ -1,0 +1,104 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "ClaimInsight360 API",
+    "description": "Consolidated API reference for ClaimInsight360 microservices",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Frontend proxy base URL"
+    },
+    {
+      "url": "http://localhost:8080",
+      "description": "API Gateway"
+    }
+  ],
+  "paths": {
+    "/api/claims/dashboard": {
+      "get": {
+        "summary": "Get dashboard summary",
+        "responses": { "200": { "description": "Dashboard summary" } }
+      }
+    },
+    "/api/identity": {
+      "get": {
+        "summary": "List users (for login/user selector)",
+        "responses": { "200": { "description": "User list" } }
+      }
+    },
+    "/api/analytics": {
+      "get": {
+        "summary": "List KPI records",
+        "responses": { "200": { "description": "KPI list" } }
+      }
+    },
+    "/api/data-ingestion/feeds": {
+      "get": {
+        "summary": "List data feeds",
+        "responses": { "200": { "description": "Data feeds" } }
+      },
+      "post": {
+        "summary": "Create data feed",
+        "requestBody": { "required": true },
+        "responses": { "201": { "description": "Feed created" } }
+      }
+    },
+    "/api/fraud-risk/indicators/unresolved": {
+      "get": {
+        "summary": "Get unresolved risk indicators",
+        "responses": { "200": { "description": "Indicators" } }
+      }
+    },
+    "/api/denial-analysis/leakages/uninvestigated": {
+      "get": {
+        "summary": "Get uninvestigated leakage flags",
+        "responses": { "200": { "description": "Leakages" } }
+      }
+    },
+    "/api/performance/adjuster/all": {
+      "get": {
+        "summary": "Get all adjuster performance records",
+        "responses": { "200": { "description": "Performance records" } }
+      }
+    },
+    "/api/cost-reserve/aging/stale": {
+      "get": {
+        "summary": "Get stale aging records",
+        "responses": { "200": { "description": "Stale claims" } }
+      }
+    },
+    "/api/dashboard/reports": {
+      "get": {
+        "summary": "List reports",
+        "responses": { "200": { "description": "Reports" } }
+      },
+      "post": {
+        "summary": "Generate report",
+        "requestBody": { "required": true },
+        "responses": { "201": { "description": "Report created" } }
+      }
+    },
+    "/api/notifications": {
+      "get": {
+        "summary": "List notifications",
+        "responses": { "200": { "description": "Notifications" } }
+      }
+    },
+    "/api/notifications/{id}/read": {
+      "put": {
+        "summary": "Mark notification as read",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int64" }
+          }
+        ],
+        "responses": { "200": { "description": "Updated" } }
+      }
+    }
+  }
+}

@@ -1,13 +1,22 @@
 import axios from 'axios'
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080'
-
 const api = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: '',
   headers: {
     'Content-Type': 'application/json'
   }
 })
+
+export const identityAPI = {
+  getUsers: () => api.get('/api/identity'),
+  createUser: (data) => api.post('/api/identity', data)
+}
+
+export const dashboardSummaryAPI = {
+  getSummary: () => api.get('/api/claims/dashboard'),
+  getKpis: () => api.get('/api/analytics'),
+  getNotifications: () => api.get('/api/notifications')
+}
 
 // Data Ingestion Service
 export const dataIngestionAPI = {
@@ -67,8 +76,7 @@ export const dashboardAPI = {
 // Notification Service
 export const notificationAPI = {
   getAllNotifications: () => api.get('/api/notifications'),
-  getUnreadNotifications: () => api.get('/api/notifications/unread'),
-  markAsRead: (id) => api.put(`/api/notifications/${id}/read`)
+  markAsRead: (id) => api.put(`/api/notifications/${id}/read`, { status: 'READ' })
 }
 
 export default api

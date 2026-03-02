@@ -45,7 +45,13 @@ export default function Performance() {
         </div>
         <div className="stat-card green">
           <div className="stat-label">Avg Quality Score</div>
-          <div className="stat-value">85</div>
+          <div className="stat-value">
+            {performance.length > 0
+              ? (
+                  performance.reduce((sum, row) => sum + Number(row.qualityScore || 0), 0) / performance.length
+                ).toFixed(1)
+              : '0.0'}
+          </div>
         </div>
       </div>
 

@@ -94,6 +94,13 @@ Services will be available at:
 - Frontend: http://localhost:3000
 - API Gateway: http://localhost:8080
 - Eureka Dashboard: http://localhost:8761
+- Swagger UI: http://localhost:8080/swagger/index.html
+
+## 📘 Beginner-Friendly Project Guide
+
+For a simpler walkthrough of architecture, code layout, and learning path, see:
+
+- [BEGINNER_GUIDE.md](BEGINNER_GUIDE.md)
 
 ### Option 2: Local Development
 

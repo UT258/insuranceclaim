@@ -45,11 +45,11 @@ export default function Notifications() {
         </div>
         <div className="stat-card yellow">
           <div className="stat-label">Unread</div>
-          <div className="stat-value">{notifications.filter(n => n.status === 'Unread').length}</div>
+          <div className="stat-value">{notifications.filter(n => (n.status || '').toUpperCase() === 'UNREAD').length}</div>
         </div>
         <div className="stat-card green">
           <div className="stat-label">Read</div>
-          <div className="stat-value">{notifications.filter(n => n.status === 'Read').length}</div>
+          <div className="stat-value">{notifications.filter(n => (n.status || '').toUpperCase() === 'READ').length}</div>
         </div>
       </div>
 
@@ -87,13 +87,13 @@ export default function Notifications() {
                     <td>{new Date(notification.createdDate).toLocaleDateString()}</td>
                     <td>
                       <span className={`badge ${
-                        notification.status === 'Unread' ? 'warning' : 'success'
+                        (notification.status || '').toUpperCase() === 'UNREAD' ? 'warning' : 'success'
                       }`}>
                         {notification.status}
                       </span>
                     </td>
                     <td>
-                      {notification.status === 'Unread' && (
+                      {(notification.status || '').toUpperCase() === 'UNREAD' && (
                         <button 
                           className="btn btn-secondary" 
                           style={{ fontSize: '12px', padding: '6px 12px' }}

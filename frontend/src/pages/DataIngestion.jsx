@@ -4,6 +4,12 @@ import { dataIngestionAPI } from '../api'
 export default function DataIngestion() {
   const [feeds, setFeeds] = useState([])
   const [loading, setLoading] = useState(true)
+  const [creating, setCreating] = useState(false)
+  const [formData, setFormData] = useState({
+    feedType: 'Claim',
+    sourceSystem: '',
+    status: 'Active'
+  })
 
   useEffect(() => {
     loadFeeds()
@@ -20,6 +26,18 @@ export default function DataIngestion() {
     }
   }
 
+  const handleCreateFeed = async (event) => {
+    event.preventDefault()
+    try {
+      await dataIngestionAPI.createFeed(formData)
+      setFormData({ feedType: 'Claim', sourceSystem: '', status: 'Active' })
+      setCreating(false)
+      loadFeeds()
+    } catch (error) {
+      console.error('Error creating feed:', error)
+    }
+  }
+
   if (loading) return <div className="loading">Loading...</div>
 
   return (
@@ -32,8 +50,42 @@ export default function DataIngestion() {
       <div className="card">
         <div className="card-header">
           <h3 className="card-title">Active Data Feeds</h3>
-          <button className="btn btn-primary">New Feed</button>
+          <button className="btn btn-primary" onClick={() => setCreating((value) => !value)}>
+            {creating ? 'Cancel' : 'New Feed'}
+          </button>
         </div>
+
+        {creating && (
+          <form onSubmit={handleCreateFeed} style={{ padding: '16px 24px', borderBottom: '1px solid #e2e8f0' }}>
+            <div className="dashboard-grid" style={{ marginBottom: 12 }}>
+              <div>
+                <label>Feed Type</label>
+                <input
+                  value={formData.feedType}
+                  onChange={(event) => setFormData((prev) => ({ ...prev, feedType: event.target.value }))}
+                  required
+                />
+              </div>
+              <div>
+                <label>Source System</label>
+                <input
+                  value={formData.sourceSystem}
+                  onChange={(event) => setFormData((prev) => ({ ...prev, sourceSystem: event.target.value }))}
+                  required
+                />
+              </div>
+              <div>
+                <label>Status</label>
+                <input
+                  value={formData.status}
+                  onChange={(event) => setFormData((prev) => ({ ...prev, status: event.target.value }))}
+                  required
+                />
+              </div>
+            </div>
+            <button className="btn btn-primary" type="submit">Create Feed</button>
+          </form>
+        )}
         <div className="table-container">
           <table>
             <thead>

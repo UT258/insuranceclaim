@@ -1,5 +1,6 @@
-import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, NavLink, Navigate } from 'react-router-dom'
 import { LayoutDashboard, Database, Shield, TrendingDown, LineChart, DollarSign, FileText, Bell } from 'lucide-react'
+import { useState } from 'react'
 import Dashboard from './pages/Dashboard'
 import DataIngestion from './pages/DataIngestion'
 import FraudRisk from './pages/FraudRisk'
@@ -8,10 +9,32 @@ import Performance from './pages/Performance'
 import CostReserve from './pages/CostReserve'
 import Reports from './pages/Reports'
 import Notifications from './pages/Notifications'
+import Login from './pages/Login'
 
 export default function App() {
+  const [currentUser, setCurrentUser] = useState(() => {
+    const saved = localStorage.getItem('claiminsight_user')
+    return saved ? JSON.parse(saved) : null
+  })
+
+  const handleLogin = (user) => {
+    localStorage.setItem('claiminsight_user', JSON.stringify(user))
+    setCurrentUser(user)
+  }
+
+  const handleLogout = () => {
+    localStorage.removeItem('claiminsight_user')
+    setCurrentUser(null)
+  }
+
   return (
     <Router>
+      {!currentUser ? (
+        <Routes>
+          <Route path="/login" element={<Login onLogin={handleLogin} />} />
+          <Route path="*" element={<Navigate to="/login" replace />} />
+        </Routes>
+      ) : (
       <div className="app-container">
         <aside className="sidebar">
           <div className="logo">
@@ -60,6 +83,11 @@ export default function App() {
               <span>Notifications</span>
             </NavLink>
           </nav>
+
+          <div className="sidebar-footer">
+            <div className="current-user">{currentUser.name || currentUser.email}</div>
+            <button className="btn btn-secondary logout-btn" onClick={handleLogout}>Log out</button>
+          </div>
         </aside>
 
         <main className="main-content">
@@ -72,9 +100,11 @@ export default function App() {
             <Route path="/cost-reserve" element={<CostReserve />} />
             <Route path="/reports" element={<Reports />} />
             <Route path="/notifications" element={<Notifications />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
       </div>
+      )}
     </Router>
   )
 }

@@ -8,6 +8,11 @@ import org.springframework.web.client.RestClient;
 public class HttpClientConfig {
 
     @Bean
+    RestClient.Builder restClientBuilder() {
+        return RestClient.builder();
+    }
+
+    @Bean
     RestClient restClient(RestClient.Builder builder) {
         return builder.build();
     }

@@ -1,13 +1,62 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
+import { dashboardSummaryAPI, dataIngestionAPI, fraudRiskAPI, denialAnalysisAPI } from '../api'
 
 export default function Dashboard() {
-  const [stats, setStats] = useState({
-    totalClaims: 1250,
-    pendingClaims: 320,
-    highRiskClaims: 45,
-    totalLeakage: 125000
-  })
+  const [loading, setLoading] = useState(true)
+  const [summary, setSummary] = useState(null)
+  const [pendingClaims, setPendingClaims] = useState([])
+  const [highRisk, setHighRisk] = useState([])
+  const [totalLeakage, setTotalLeakage] = useState(0)
+  const [kpis, setKpis] = useState([])
+
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const [summaryRes, pendingRes, highRiskRes, leakageRes, kpiRes] = await Promise.all([
+          dashboardSummaryAPI.getSummary(),
+          dataIngestionAPI.getPendingClaims(),
+          fraudRiskAPI.getHighRiskClaims(),
+          denialAnalysisAPI.getTotalLeakageAmount(),
+          dashboardSummaryAPI.getKpis()
+        ])
+
+        setSummary(summaryRes.data)
+        setPendingClaims(pendingRes.data || [])
+        setHighRisk(highRiskRes.data || [])
+        setTotalLeakage(Number(leakageRes.data || 0))
+        setKpis(kpiRes.data || [])
+      } catch (error) {
+        console.error('Error loading dashboard data:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    loadData()
+  }, [])
+
+  const chartData = useMemo(() => {
+    if (kpis.length === 0) {
+      return []
+    }
+
+    const grouped = new Map()
+    kpis.forEach((kpi) => {
+      const dateKey = (kpi.metricDate || '').slice(0, 7)
+      if (!dateKey) return
+      if (!grouped.has(dateKey)) {
+        grouped.set(dateKey, { month: dateKey, kpiCount: 0, metricValue: 0 })
+      }
+      const current = grouped.get(dateKey)
+      current.kpiCount += 1
+      current.metricValue += Number(kpi.metricValue || 0)
+    })
+
+    return Array.from(grouped.values()).sort((a, b) => a.month.localeCompare(b.month))
+  }, [kpis])
+
+  if (loading) return <div className="loading">Loading...</div>
 
   return (
     <div>
@@ -19,26 +68,26 @@ export default function Dashboard() {
       <div className="dashboard-grid">
         <div className="stat-card blue">
           <div className="stat-label">Total Claims</div>
-          <div className="stat-value">{stats.totalClaims}</div>
-          <div className="stat-change positive">+12% from last month</div>
+          <div className="stat-value">{summary?.totalClaims ?? pendingClaims.length}</div>
+          <div className="stat-change positive">Live from Claims service</div>
         </div>
         
         <div className="stat-card yellow">
           <div className="stat-label">Pending Claims</div>
-          <div className="stat-value">{stats.pendingClaims}</div>
-          <div className="stat-change positive">-5% from last month</div>
+          <div className="stat-value">{pendingClaims.length}</div>
+          <div className="stat-change positive">Live from Data Ingestion service</div>
         </div>
         
         <div className="stat-card red">
           <div className="stat-label">High Risk Claims</div>
-          <div className="stat-value">{stats.highRiskClaims}</div>
-          <div className="stat-change negative">+8% from last month</div>
+          <div className="stat-value">{highRisk.length}</div>
+          <div className="stat-change negative">Live from Fraud Risk service</div>
         </div>
         
         <div className="stat-card green">
           <div className="stat-label">Total Leakage</div>
-          <div className="stat-value">${(stats.totalLeakage / 1000).toFixed(0)}K</div>
-          <div className="stat-change negative">+3% from last month</div>
+          <div className="stat-value">${(totalLeakage / 1000).toFixed(1)}K</div>
+          <div className="stat-change negative">Live from Denial Analysis service</div>
         </div>
       </div>
 
@@ -48,21 +97,14 @@ export default function Dashboard() {
         </div>
         <div className="chart-container">
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={[
-              { month: 'Jan', claims: 65, closed: 45 },
-              { month: 'Feb', claims: 59, closed: 50 },
-              { month: 'Mar', claims: 80, closed: 60 },
-              { month: 'Apr', claims: 81, closed: 70 },
-              { month: 'May', claims: 56, closed: 48 },
-              { month: 'Jun', claims: 55, closed: 50 }
-            ]}>
+            <BarChart data={chartData}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="month" />
               <YAxis />
               <Tooltip />
               <Legend />
-              <Bar dataKey="claims" fill="#3b82f6" />
-              <Bar dataKey="closed" fill="#10b981" />
+              <Bar dataKey="kpiCount" fill="#3b82f6" name="KPI Records" />
+              <Bar dataKey="metricValue" fill="#10b981" name="Total Metric Value" />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -77,34 +119,37 @@ export default function Dashboard() {
             <thead>
               <tr>
                 <th>Claim ID</th>
-                <th>Date</th>
-                <th>Amount</th>
+                <th>Ingested Date</th>
+                <th>Source</th>
                 <th>Status</th>
-                <th>Risk Level</th>
+                <th>Risk Score</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>CLM-2024-001</td>
-                <td>2024-03-02</td>
-                <td>$12,500</td>
-                <td><span className="badge success">Approved</span></td>
-                <td><span className="badge info">Low</span></td>
-              </tr>
-              <tr>
-                <td>CLM-2024-002</td>
-                <td>2024-03-01</td>
-                <td>$25,000</td>
-                <td><span className="badge warning">Pending</span></td>
-                <td><span className="badge warning">Medium</span></td>
-              </tr>
-              <tr>
-                <td>CLM-2024-003</td>
-                <td>2024-02-28</td>
-                <td>$45,000</td>
-                <td><span className="badge warning">Under Review</span></td>
-                <td><span className="badge danger">High</span></td>
-              </tr>
+              {pendingClaims.length > 0 ? (
+                pendingClaims.slice(0, 8).map((claim) => {
+                  const riskForClaim = highRisk.find((risk) => risk.claimId === claim.claimId)
+                  return (
+                    <tr key={claim.rawId}>
+                      <td>{claim.claimId}</td>
+                      <td>{claim.ingestedDate ? new Date(claim.ingestedDate).toLocaleDateString() : '-'}</td>
+                      <td>{claim.sourceSystem || '-'}</td>
+                      <td><span className="badge warning">{claim.processStatus || 'Pending'}</span></td>
+                      <td>
+                        <span className={`badge ${riskForClaim ? 'danger' : 'info'}`}>
+                          {riskForClaim ? Number(riskForClaim.riskScore || 0).toFixed(2) : 'N/A'}
+                        </span>
+                      </td>
+                    </tr>
+                  )
+                })
+              ) : (
+                <tr>
+                  <td colSpan="5" style={{ textAlign: 'center' }}>
+                    No live claim records available.
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>

@@ -1,6 +1,7 @@
 package com.claiminsight360.notification.service;
 
 import com.claiminsight360.notification.domain.Notification;
+import com.claiminsight360.notification.domain.NotificationStatus;
 import com.claiminsight360.notification.dto.NotificationDto;
 import com.claiminsight360.notification.repo.NotificationRepository;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,13 @@ public class NotificationService {
         notification.setCategory(dto.category());
         notification.setStatus(dto.status());
         notification.setCreatedDate(dto.createdDate() == null ? LocalDateTime.now() : dto.createdDate());
+        return toDto(repository.save(notification));
+    }
+
+    public NotificationDto markAsRead(Long notificationId) {
+        Notification notification = repository.findById(notificationId)
+                .orElseThrow(() -> new IllegalArgumentException("Notification not found: " + notificationId));
+        notification.setStatus(NotificationStatus.READ);
         return toDto(repository.save(notification));
     }
 

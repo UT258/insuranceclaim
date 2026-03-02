@@ -34,4 +34,9 @@ public class NotificationController {
     public NotificationDto create(@Valid @RequestBody NotificationDto dto) {
         return notificationService.create(dto);
     }
+
+    @PutMapping("/notifications/{id}")
+    public NotificationDto markAsRead(@PathVariable Long id) {
+        return notificationService.markAsRead(id);
+    }
 }
